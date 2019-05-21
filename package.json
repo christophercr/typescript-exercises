@@ -1,0 +1,33 @@
+{
+  "name": "typescript-exercises",
+  "version": "1.0.0",
+  "description": "Exercises to illustrate TypeScript features",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "tsc",
+    "tsc": "tsc",
+    "watch": "tsc --watch",
+    "serve": "browser-sync start --server --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/christophercr/typescript-exercises.git"
+  },
+  "keywords": [
+    "typescript",
+    "exercises"
+  ],
+  "author": "Christopher Cortes",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/christophercr/typescript-exercises/issues"
+  },
+  "homepage": "https://github.com/christophercr/typescript-exercises#readme",
+  "dependencies": {
+    "browser-sync": "^2.26.5",
+    "systemjs": "^3.1.6",
+    "systemjs-transform-babel": "^0.1.2",
+    "typescript": "^3.2.4"
+  }
+}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TypeScript Advanced</title>
+  <!-- Configure SystemJS -->
+  <script src="node_modules/systemjs/dist/system.js"></script>
+  <script src="node_modules/systemjs/dist/extras/transform.js"></script>
+  <script type="systemjs-importmap">
+        {
+          "imports": {
+            "./exercise-1-basic-types/exercise1": "./exercise-1-basic-types/exercise1.js",
+            "./exercise-1-basic-types/solution1": "./exercise-1-basic-types/solution1.js",
+            "./exercise-2-interfaces/exercise2": "./exercise-2-interfaces/exercise2.js",
+            "./exercise-2-interfaces/solution2": "./exercise-2-interfaces/solution2.js",
+            "./exercise-3-functions/exercise3": "./exercise-3-functions/exercise3.js",
+            "./exercise-3-functions/solution3": "./exercise-3-functions/solution3.js",
+            "./exercise-4-types/exercise4": "./exercise-4-types/exercise4.js",
+            "./exercise-4-types/solution4": "./exercise-4-types/solution4.js",
+            "./exercise-5-classes/exercise5": "./exercise-5-classes/exercise5.js",
+            "./exercise-5-classes/solution5": "./exercise-5-classes/solution5.js"
+          }
+        }
+  </script>
+  <script src="node_modules/systemjs-transform-babel/dist/babel-transform.js"></script>
+  <script>
+    System.import('/index.js').then(null, console.error.bind(console));
+  </script>
+</head>
+<body>
+<h2>TypeScript Advanced</h2>
+
+<p>Open the browser console to see the results.</p>
+</body>
+</html>

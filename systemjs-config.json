@@ -1,0 +1,5 @@
+{
+  "imports": {
+    "./Exercise_1_BasicTypes/exercise1": "./Exercise_1_BasicTypes/exercise1.js"
+  }
+}

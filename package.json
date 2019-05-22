@@ -8,7 +8,13 @@
     "compile": "tsc",
     "tsc": "tsc",
     "watch": "tsc --watch",
-    "serve": "browser-sync start --server --watch"
+    "serve": "browser-sync start --server --watch",
+    "compile:app": "tsc -p ./exercise-final",
+    "compile:watch:app": "tsc -p ./exercise-final --watch",
+    "build:app": "cross-env NODE_ENV=production parcel build ./exercise-final/index.html --public-url .",
+    "watch:app": "parcel watch ./exercise-final/index.html",
+    "serve:app": "npm run start:app",
+    "start:app": "parcel serve --no-autoinstall --no-hmr --open --port 3000 ./exercise-final/index.html"
   },
   "repository": {
     "type": "git",
@@ -26,6 +32,11 @@
   "homepage": "https://github.com/christophercr/typescript-exercises#readme",
   "dependencies": {
     "browser-sync": "^2.26.5",
+    "class-transformer": "^0.2.3",
+    "cross-env": "^5.2.0",
+    "localforage": "^1.7.3",
+    "parcel-bundler": "^1.12.3",
+    "reflect-metadata": "^0.1.13",
     "systemjs": "^3.1.6",
     "systemjs-transform-babel": "^0.1.2",
     "typescript": "^3.2.4"

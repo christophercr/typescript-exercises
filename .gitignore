@@ -76,3 +76,7 @@ typings/
 !.vscode/launch.json
 !.vscode/extensions.json
 .history/*
+
+# Parcel
+/.cache
+/dist

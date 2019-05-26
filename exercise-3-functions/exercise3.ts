@@ -10,13 +10,13 @@
 
 export function exercise3_1() {
   // ======== Exercise 3.1 ========
-  // TODO:
+  // TODO: optional params
   // • Add explicit parameter types and return types to the `deposit` function
   // • Make the function's `message` parameter *optional*
 
   const bankAccount = {
     money: 0,
-    deposit(value, message) {
+    deposit(value: number, message?: string) {
       this.money += value;
       if (message) {
         console.log(message);
@@ -33,7 +33,7 @@ export function exercise3_1() {
 export function exercise3_2() {
   // ======== Exercise 3.2 ========
   // For a given word, we compute its Scrabble score.
-  // TODO:
+  // TODO: tuples
   // • Add type annotations wherever possible
 
   function computeScore(word) {
@@ -41,8 +41,8 @@ export function exercise3_2() {
     return letters.reduce((accum, curr) => accum += getPointsFor(curr), 0);
   }
 
-  function getPointsFor(letter) {
-    const lettersAndPoints = [
+  function getPointsFor(letter): number {
+    const lettersAndPoints: [string, number][] = [
       ['AEOIULNRST', 1],
       ['DG', 2],
       ['BCMP', 3],
@@ -52,7 +52,7 @@ export function exercise3_2() {
       ['QZ', 10],
     ];
 
-    return lettersAndPoints.reduce((computedScore, pointsTuple) => {
+    return lettersAndPoints.reduce((computedScore: number, pointsTuple: [string, number]) => {
       const [letters, score] = pointsTuple;
       if (letters.split('').find((ll) => ll === letter)) {
         return computedScore += score;
@@ -66,11 +66,11 @@ export function exercise3_2() {
 
 export function exercise3_3() {
   // ======== Exercise 3.3 ========
-  // TODO:
+  // TODO: default params
   // • Add explicit parameter types and return types
   // • Add a default greeting: "hello"
 
-  function greet(greeting) {
+  function greet(greeting: string = 'hello') {
     return greeting.toUpperCase();
   }
 
@@ -82,32 +82,32 @@ export function exercise3_3() {
 
 export function exercise3_4() {
   // ======== Exercise 3.4 ========
-  // TODO:
+  // TODO: void
   // • Add parameter type annotation
   // • Even though this function doesn't return, add an explicit return type
 
-  function layEggs(quantity, color) {
+  function layEggs(quantity: number, color: string): void {
     console.log(`[Exercise 3.4] You just laid ${quantity} ${color} eggs. Good job!`);
   }
 
-  layEggs("blue", 10);
+  layEggs(10, "blue");
 }
 
 export function exercise3_5() {
   // ======== Exercise 3.5 ========
   // Here we've initialized two variables with function types.
   // Later we assign them to functions.
-  // TODO:
+  // TODO: match functions with the correct types
   // • Fix the errors
 
   let multiply: (val1: number, val2: number) => number;
   let capitalize: (val: string) => string;
 
-  multiply = function (value: string): string {
+  capitalize = function (value: string): string {
     return `${value.charAt(0).toUpperCase()}${value.slice(1)}`;
   };
 
-  capitalize = function (x: number, y: number): number {
+  multiply = function (x: number, y: number): number {
     return x * y;
   };
 
@@ -124,7 +124,7 @@ export function exercise3_6() {
   //     1. The `any` type causes us to lose ALL typing information on our params.
   //     2. This looseness has come back to back to bite us during runtime. (Just look at `incrementByTwo`!)
   //
-  // TODO:
+  // TODO: generic functions
   // • Implement `pushToCollection` as a generic function. (This should create
   //   compile-time errors in places where incorrect values are being added to
   //   a given collection. Fix these values to the correct types.)
@@ -134,19 +134,19 @@ export function exercise3_6() {
   const numberCollection: number[] = [];
   const stringCollection: string[] = [];
 
-  function pushToCollection(item, collection) {
+  function pushToCollection<T>(item: T, collection: T[]): T[] {
     collection.push(item);
     return collection;
   }
 
   // Add some stuff to the collections
-  pushToCollection(false, stringCollection);
+  pushToCollection('false', stringCollection);
   pushToCollection('hi', stringCollection);
-  pushToCollection([], stringCollection);
+  pushToCollection('[]', stringCollection);
 
-  pushToCollection('1', numberCollection);
-  pushToCollection('2', numberCollection);
-  pushToCollection('3', numberCollection);
+  pushToCollection(1, numberCollection);
+  pushToCollection(2, numberCollection);
+  pushToCollection(3, numberCollection);
 
   const incrementedByTwo = numberCollection.map((num) => num + 2);
 
@@ -155,7 +155,7 @@ export function exercise3_6() {
 
 export function exercise3_7() {
   // ======== Exercise 3.7 ========
-  // TODO:
+  // TODO: generic constraint
   // • Fix the 'displayRecipe()' function so that we ensure that property 'chef' is there when we call the function
 
   abstract class Recipe {
@@ -175,13 +175,13 @@ export function exercise3_7() {
   class BrittanyRecipe extends FrenchRecipe {
   }
 
-  function displayRecipe<T>(recipe: T): void {
+  function displayRecipe<T extends FrenchRecipe>(recipe: T): void {
     console.log(`[Exercise 3.7] This is a french recipe conceived by the following chef: ${recipe.chef}`); // the 'chef' property should always be there when displayRecipe() is called
   }
 
   const brittanyRecipe = new BrittanyRecipe("Crèpe Bretonne", ["Eggs", "Flour", "Salt", "..."], "Bertrand Denis");
   const italianRecipe = new ItalianRecipe("Spaghetti Bolognese", ["Pasta", "Tomatoes", "Garlic", "Onions", "..."]);
 
-  displayRecipe(italianRecipe); // property 'chef' is missing
+  // displayRecipe(italianRecipe); // property 'chef' is missing
   displayRecipe(brittanyRecipe); // OK
 }

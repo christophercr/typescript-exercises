@@ -9,12 +9,15 @@
 export function exercise5_1() {
 
   // ======== Exercise 5.1 ========
-  // TODO:
+  // TODO: public properties
   // • Add explicit parameter types to constructor
   // • Add typed parameters for storing values
 
   class Person {
-    constructor(name, age) {
+    name: string;
+    age: number;
+
+    constructor(name: string, age: number) {
       this.name = name;
       this.age = age;
     }
@@ -27,17 +30,12 @@ export function exercise5_1() {
 
 export function exercise5_2() {
   // ======== Exercise 5.2 ========
-  // TODO:
+  // TODO: properties declaration
   // • Explicitly make the title and salary properties publicly available
   // • Reduce class to the minimum lines of code while maintaining functionality
 
   class Employee {
-    title: string;
-    salary: number;
-
-    constructor(title: string, salary: number) {
-      this.title = title;
-      this.salary = salary;
+    constructor(public title: string, public salary: number) {
     }
   }
 
@@ -48,7 +46,7 @@ export function exercise5_2() {
 
 export function exercise5_3() {
   // ======== Exercise 5.3 ========
-  // TODO:
+  // TODO: inheritance, private properties, super calls, abstract classes
   // • Add complete typings
   // • Make the Snake class inherit from Animal
   // • Make the Pony class inherit from Animal
@@ -56,25 +54,27 @@ export function exercise5_3() {
   // • The class Animal should not be instantiable.
 
   class Animal {
-    constructor(name) {
+    constructor(private name: string) {
     }
 
-    move(meters) {
+    move(meters: number) {
       console.log(`[Exercise 5.3] ${this.name} moved ${meters}m.`);
     }
   }
 
-  class Snake {
-    move(meters) {
+  class Snake extends Animal {
+    move(meters: number = 5) {
       console.log('[Exercise 5.3] Slithering...');
       // should call parent's `move` method, with a default slither of 5 meters
+      super.move(meters);
     }
   }
 
-  class Pony {
-    move(meters) {
+  class Pony extends Animal {
+    move(meters: number = 60) {
       console.log('[Exercise 5.3] Galloping...');
       // should call parent's `move` method, with a default gallop of 60 meters
+      super.move(meters);
     }
   }
 
@@ -85,20 +85,20 @@ export function exercise5_3() {
 
   const sammy = new Snake("Sammy the Snake");
   sammy.move();
-  console.log('[Exercise 5.3] sammy.name',sammy.name); // Should return error
+  // console.log('[Exercise 5.3] sammy.name',sammy.name); // Should return error
 
   const pokey = new Pony("Pokey the Pony");
   pokey.move(34);
-  console.log('[Exercise 5.3] pokey.name', pokey.name); // Should return error
+  // console.log('[Exercise 5.3] pokey.name', pokey.name); // Should return error
 }
 
 export function exercise5_4() {
   // ======== Exercise 5.4 ========
-  // TODO:
+  // TODO: protected properties
   // • Make it so that only the Desk and Chair classes can see the manufacturer member
 
   class Furniture {
-    constructor(manufacturer: string = 'IKEA') {
+    constructor(protected manufacturer: string = 'IKEA') {
     }
   }
 
@@ -116,20 +116,20 @@ export function exercise5_4() {
 
   const desk = new Desk();
   desk.kind();
-  desk.manufacturer; // Should return error
+  // desk.manufacturer; // Should return error
 
   const chair = new Chair();
   chair.kind();
-  chair.manufacturer; // Should return error
+  // chair.manufacturer; // Should return error
 }
 
 export function exercise5_5() {
   // ======== Exercise 5.5 ========
-  // TODO:
+  // TODO: static properties vs instance properties
   // • Eliminate the error without changing references to `Student.school`
 
   class Student {
-    public school: string = 'Harry Herpson High School';
+    public static school: string = 'Harry Herpson High School';
 
     constructor(private name: string) {
     };

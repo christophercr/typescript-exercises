@@ -9,11 +9,17 @@
 
 export function exercise2_1() {
   // ======== Exercise 2.1 ========
-  // TODO:
+  // TODO: interfaces and optional properties
   // • Replace the type of 'item' param with an interface
   // • Make variantId optional
 
-  function addToCart(item: { id: number, title: string, variantId: number }) {
+  interface CartItem {
+    id: number;
+    title: string;
+    variantId?: number;
+  }
+
+  function addToCart(item: CartItem) {
     console.log('[Exercise 2.1]', `Adding "${item.title}" to cart.`);
   }
 
@@ -22,7 +28,7 @@ export function exercise2_1() {
 
 export function exercise2_2() {
   // ======== Exercise 2.2 ========
-  // TODO:
+  // TODO: expand definition of interfaces
   // • Create an interface `Coords` that has numeric `latitude` and `longitude` properties.
   // • Extend the existing interface `City` (without modifying it inline) by adding a
   //   `coords` property of type `Coords`.
@@ -35,7 +41,16 @@ export function exercise2_2() {
   }
   // --------------------------
 
-  const montreal = {
+  interface City {
+    coords: Coordinates;
+  }
+
+  interface Coordinates {
+    latitude: number;
+    longitude: number;
+  }
+
+  const montreal: City = {
     coords: {
       latitude: 42.332,
       longitude: -73.324,
@@ -43,10 +58,10 @@ export function exercise2_2() {
     name: 'Montréal',
   };
 
-  const tampa = {
+  const tampa: City = {
     coords: {
-      latitude: '27.9478',
-      longitude: '-82.4584',
+      latitude: 27.9478,
+      longitude: -82.4584,
     },
     name: 'Tampa',
   };
@@ -78,7 +93,7 @@ export function exercise2_3() {
   console.log('[Exercise 2.3] user.id', user.id); // readable
 
   user.name = 'Harold'; // writable
-  user.id = 5; // not writable
+  // user.id = 5; // not writable
 
   console.log(`[Exercise 2.3] User:`, user)
 }

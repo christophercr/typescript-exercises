@@ -12,7 +12,7 @@ export function exercise4_1() {
   // ======== Exercise 4.1 ========
   // TypeScript is intelligent about the possible types of a variable,
   // depending on the code path.
-  // TODO:
+  // TODO: compare the inferred types when the 'strict' option in tsconfig.json is enabled and disabled
   // • Simply inspect the possible types by hovering over `text` to see
   //   how the inferred type changes if assumptions can be safely made
   //   about the possible types within the given code path.
@@ -77,12 +77,17 @@ export function exercise4_1() {
 
 export function exercise4_2() {
   // ======== Exercise 4.2 ========
-  // TODO:
+  // TODO: type guards (typeof)
   // • Use a type guard to fill out the body of the `padLeft` function.
 
   function padLeft(value: string, padding: number | string): string {
     // if padding is a number, return `${Array(padding + 1).join(' ')}${value}`
     // if padding is a string, return padding + value
+    if (typeof padding === "number") {
+      return `${Array(padding + 1).join(' ')}${value}`;
+    } else {
+      return padding + value
+    }
   }
 
   console.log('[Exercise 4.2]', `
@@ -96,15 +101,31 @@ export function exercise4_2() {
 
 export function exercise4_3() {
   // ======== Exercise 4.3 ========
-  // TODO:
+  // TODO: generic functions, type guards
   // • Add type annotations (`any` excluded)
   // • Inspect inferred type of `element` in different code branches
   // • Finally turn `flatten` into a generic function
 
-  const numbers = [1, 2, 3, [44, 55], 6, [77, 88], 9, 10];
+  const numbers: (number | number[])[] = [1, 2, 3, [44, 55], 6, [77, 88], 9, 10];
 
-  function flatten(array) {
-    const flattened = [];
+  function flatten(array: (number | number[])[]): number[] {
+    const flattened: number[] = [];
+
+    for (const element of array) {
+      if (Array.isArray(element)) {
+        element; // any[]
+        flattened.push(...element);
+      } else {
+        element; // any
+        flattened.push(element);
+      }
+    }
+
+    return flattened;
+  }
+
+  function genericFlatten<T>(array: (T | T[])[]): T[] {
+    const flattened: T[] = [];
 
     for (const element of array) {
       if (Array.isArray(element)) {
@@ -120,14 +141,16 @@ export function exercise4_3() {
   }
 
   const flattenedNumbers = flatten(numbers);
-
   console.log('[Exercise 4.3]', flattenedNumbers);
+
+  const genericFlattenedNumbers = genericFlatten(numbers);
+  console.log('[Exercise 4.3]', genericFlattenedNumbers);
 }
 
 export function exercise4_4() {
   // ======== Exercise 4.4 ========
   //
-  // TODO:
+  // TODO: type intersection, type alias, type guards (instanceof, custom)
   // • Birds and Fish both lay eggs. Only Birds fly. Only Fish swim. Define
   //   two new types: `BirdLike` and `FishLike` based on these traits.
   // • Create a type alias for `Bird OR Fish` called `Animal`
@@ -147,6 +170,9 @@ export function exercise4_4() {
   }
 
   // add type alias(es) here
+  type BirdLike = Flyer & EggLayer;
+  type FishLike = Swimmer & EggLayer;
+  type Animal = Bird | Fish;
 
   class Bird implements BirdLike {
     constructor(public species: string) {
@@ -174,8 +200,8 @@ export function exercise4_4() {
     }
   }
 
-  function getRandomAnimal() {
-    const animals = [
+  function getRandomAnimal(): Animal {
+    const animals: Animal[] = [
       new Bird('puffin'),
       new Bird('kittiwake'),
       new Fish('sea robin'),
@@ -186,8 +212,11 @@ export function exercise4_4() {
   }
 
   function interrogateAnimal(animal = getRandomAnimal()) {
-    animal.swim(10); // call only if it is a fish
-    animal.fly(10); // call only if it is a bird
+    if (animal instanceof Fish) {
+      animal.swim(10); // call only if it is a fish
+    } else if (animal instanceof Bird) {
+      animal.fly(10); // call only if it is a bird
+    }
 
     return animal.species;
   }
@@ -226,7 +255,7 @@ export function exercise4_5() {
 export function exercise4_6() {
   // ======== Exercise 4.6 ========
   //
-  // TODO:
+  // TODO: type query keyof
   // • Change the 'displayGameProperty()' function to prevent calling it with an invalid property name
 
   interface Game {
@@ -234,14 +263,14 @@ export function exercise4_6() {
     players: number;
   }
 
-  function displayGameProperty(game: Game, propertyName: string): void {
+  function displayGameProperty(game: Game, propertyName: keyof Game): void {
     console.log('[Exercise 4.6]', game[propertyName]);
   }
 
   const game: Game = {name: "Chess", players: 2};
 
   displayGameProperty(game, "name");
-  displayGameProperty(game, "creator"); // should give a compilation error because Game has no 'creator' property!
+  // displayGameProperty(game, "creator"); // should give a compilation error because Game has no 'creator' property!
 }
 
 export function exercise4_7() {
@@ -280,11 +309,24 @@ export function exercise4_7() {
     & Partial<Pick<InvisibleButton, UnusedIconProps>>;
 
   const genericBtn: ButtonGeneric = {
-    // add some props
+    buttonColor: "white",
+    className: "some-class",
+    icon: "some icon",
+    iconActivated: "another icon",
+    iconSwitchFunction: () => false,
+    isEnabled: true,
+    label: "this is a generic button"
   };
 
   const invisibleGenericBtn: ButtonGenericInvisible = {
-    // add some props
+    buttonColor: "white",
+    className: "some-class",
+    icon: "some icon",
+    iconActivated: "another icon",
+    iconSwitchFunction: () => false,
+    isEnabled: true,
+    label: "this is a generic button",
+    isVisible: true
   };
 }
 
@@ -293,23 +335,38 @@ export function exercise4_8() {
   //
   // Here 'itemLocation' is defined as having type any and it's assigned the value of 10, but we use it unsafely.
   //
-  // TODO:
+  // TODO: unknown vs any
   // • Change the type of 'itemLocation' for one that is not too flexible but still allows us compile the code
   // (although runtime errors might still happen)
 
-  let itemLocation: any = 10;
+  let itemLocation: unknown = 10;
 
-  itemLocation.coordinates.x;
-  itemLocation.coordinates.y;
-  itemLocation.coordinates.z;
+  // type guard for Explicit Structural Check
+  function isItemWithCoordinates(item: any): item is { coordinates: { x: any; y: any; z: any } } {
+    return !!item && typeof item === "object" && "coordinates" in item && "x" in item.coordinates && "y" in item.coordinates && "z" in item.coordinates
+  }
+
+  if (isItemWithCoordinates(itemLocation)) {
+    itemLocation.coordinates.x;
+    itemLocation.coordinates.y;
+    itemLocation.coordinates.z;
+  }
+
+  // type assertion
+  type ItemWithCoordinates = { coordinates: { x: any; y: any; z: any } };
+  (itemLocation as ItemWithCoordinates).coordinates.x;
+  (itemLocation as ItemWithCoordinates).coordinates.y;
+  (itemLocation as ItemWithCoordinates).coordinates.z;
 
   const printLocation = (loc: string) => {
     console.log(loc.toLowerCase());
   };
 
-  printLocation(itemLocation);
+  printLocation(itemLocation as string);
 
-  itemLocation();
+  (itemLocation as Function)();
 
-  const iPhoneLoc = new itemLocation();
+  type ConstructorFunction = () => void;
+
+  const iPhoneLoc = new (itemLocation as ConstructorFunction)();
 }

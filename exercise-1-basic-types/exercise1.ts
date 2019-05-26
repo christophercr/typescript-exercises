@@ -9,21 +9,21 @@
 
 export function exercise1_1() {
   // ======== Exercise 1.1 ========
-  // TODO:
+  // TODO: number types
   // • Add type annotations (as explicit as possible)
   // • Fix errors (if applicable)
 
-  const integer = 6;
-  const float = 6.66;
-  const hex = 0xf00d;
-  const binary = 0b1010011010;
-  const octal = 0o744;
-  const negZero = -0;
-  const actuallyNumber = NaN;
-  const largestNumber = Number.MAX_VALUE;
-  const mostBiglyNumber = Infinity;
+  const integer: number = 6;
+  const float: number = 6.66;
+  const hex: number = 0xf00d;
+  const binary: number = 0b1010011010;
+  const octal: number = 0o744;
+  const negZero: number = -0;
+  const actuallyNumber: number = NaN;
+  const largestNumber: number = Number.MAX_VALUE;
+  const mostBiglyNumber: number = Infinity;
 
-  const members: any[] = [
+  const members: number[] = [
     integer,
     float,
     hex,
@@ -35,35 +35,35 @@ export function exercise1_1() {
     mostBiglyNumber
   ];
 
-  members[0] = '12345';
+  members[0] = 12345;
 
   console.log('[Exercise 1.1]', members);
 }
 
 export function exercise1_2() {
   // ======== Exercise 1.2 ========
-  // TODO:
+  // TODO: arrays of arrays and mixed arrays
   // • Add type annotations (as explicit as possible)
   // • Fix errors (if applicable)
 
-  const sequence = Array.from(Array(10).keys());
-  const animals = ['pangolin', 'aardvark', 'echidna', 'binturong'];
-  const stringsAndNumbers = [1, 'one', 2, 'two', 3, 'three'];
-  const allMyArrays = [sequence, animals, stringsAndNumbers];
+  const sequence: number[] = Array.from(Array(10).keys());
+  const animals: string[] = ['pangolin', 'aardvark', 'echidna', 'binturong'];
+  const stringsAndNumbers: (number | string)[] = [1, 'one', 2, 'two', 3, 'three'];
+  const allMyArrays: (number | string)[][] = [sequence, animals, stringsAndNumbers];
 
   console.log('[Exercise 1.2]', allMyArrays);
 }
 
 export function exercise1_3() {
   // ======== Exercise 1.3 ========
-  // TODO:
+  // TODO: tuples
   // • Add type annotations (as explicit as possible)
   // • Fix errors (if applicable)
 
   // We want to represent an inventoryItem as a structure where
   // the first entry is the item name and the second is the quantity
 
-  const inventoryItem = ['fidget wibbit', 11];
+  const inventoryItem: [string, number] = ['fidget wibbit', 11];
 
   // later we destructure it
   const [name, qty] = inventoryItem;
@@ -79,10 +79,10 @@ export function exercise1_3() {
 
 export function exercise1_4() {
   // ======== Exercise 1.4 ========
-  // TODO:
+  // TODO: enum vs const enum
   // • Fix the error so that the name of the TShirtType entry is logged to the console
 
-  const enum TShirtType {
+  enum TShirtType {
     CrewNeck = "Crew Neck", // must be initialized with a constant
     VNeck = "V Neck",
     Henley = "Henley",

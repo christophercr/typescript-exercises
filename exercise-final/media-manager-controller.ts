@@ -55,7 +55,7 @@ export class MediaManagerControllerImpl implements MediaManagerController {
     });
   }
 
-  createBookCollection() {
+  createBookCollection(): void {
     const newBookCollectionName: string = this._view.getNewBookCollectionName();
 
     console.log("Creating a new book collection: ", newBookCollectionName);
@@ -72,7 +72,7 @@ export class MediaManagerControllerImpl implements MediaManagerController {
     });
   }
 
-  removeBookCollection(identifier: string) {
+  removeBookCollection(identifier: string): void {
     if (!identifier) {
       throw new Error("An identifier must be provided");
     }
@@ -86,7 +86,7 @@ export class MediaManagerControllerImpl implements MediaManagerController {
     });
   }
 
-  createBook(collectionIdentifier: string) {
+  createBook(collectionIdentifier: string): void {
     if (!collectionIdentifier) {
       throw new Error("The collection identifier is required to create a new book!");
     }
@@ -127,7 +127,7 @@ export class MediaManagerControllerImpl implements MediaManagerController {
       });
   }
 
-  removeBook(collectionIdentifier: string, bookIdentifier: string) {
+  removeBook(collectionIdentifier: string, bookIdentifier: string): void {
     if (!collectionIdentifier) {
       throw new Error("The collection identifier is required to remove a book!");
     }

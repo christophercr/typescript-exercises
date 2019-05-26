@@ -32,9 +32,9 @@ export class HTMLMediaManagerView implements MediaManagerView {
   private readonly _genreOptions: string = "";
 
   constructor() {
-    this._newBookCollectionForm = document.getElementById('newBookCollection');
-    this._newBookCollectionName = document.getElementById('newBookCollectionName');
-    this._bookCollectionsContainer = document.getElementById("bookCollections");
+    this._newBookCollectionForm = document.getElementById('newBookCollection') as HTMLFormElement;
+    this._newBookCollectionName = document.getElementById('newBookCollectionName') as HTMLInputElement;
+    this._bookCollectionsContainer = document.getElementById("bookCollections") as HTMLDivElement;
 
     if (!this._newBookCollectionForm) {
       throw new Error("Could not initialize the view. The 'newBookCollection' element id was not found. Was the template changed?");
@@ -53,7 +53,7 @@ export class HTMLMediaManagerView implements MediaManagerView {
     }
   }
 
-  getNewBookCollectionName() {
+  getNewBookCollectionName(): string {
     // build upon standard HTML DOM validation
     if (this._newBookCollectionName.checkValidity() === false) {
       this._newBookCollectionName.reportValidity();
@@ -172,14 +172,14 @@ export class HTMLMediaManagerView implements MediaManagerView {
     }
   }
 
-  displayErrorMessage(errorMessage: string) {
+  displayErrorMessage(errorMessage: string): void {
     if (!errorMessage) {
       throw new Error("An error message must be provided!");
     }
     alert(errorMessage); // bad user experience but ignore this for now
   }
 
-  getNewBookDetails(collectionIdentifier: string): { error: string, book: Book } {
+  getNewBookDetails(collectionIdentifier: string): { error?: string, book?: Book } {
     if (!collectionIdentifier) {
       // we throw this one because it means that there is a bug!
       throw new Error("The collection identifier must be provided!");
@@ -202,11 +202,11 @@ export class HTMLMediaManagerView implements MediaManagerView {
 
     // from here on out, no need to check the validity of the specific form fields
     // we just need to check if the fields can be found
-    const newBookNameField = document.getElementById(`newBookName-${collectionIdentifier}`);
+    const newBookNameField = document.getElementById(`newBookName-${collectionIdentifier}`) as HTMLInputElement;
     if (!newBookNameField) {
       throw new Error("The new book form's name input was not found! Did the template change?");
     }
-    const newBookAuthorField = document.getElementById(`newBookAuthor-${collectionIdentifier}`);
+    const newBookAuthorField = document.getElementById(`newBookAuthor-${collectionIdentifier}`) as HTMLInputElement;
     if (!newBookAuthorField) {
       throw new Error("The new book form's author input was not found! Did the template change?");
     }
@@ -255,7 +255,7 @@ export class HTMLMediaManagerView implements MediaManagerView {
     bookElement.remove();
   }
 
-  clearNewBookForm(collectionIdentifier: string) {
+  clearNewBookForm(collectionIdentifier: string): void {
     if (!collectionIdentifier) {
       throw new Error("The collection identifier must be provided!");
     }
@@ -269,7 +269,7 @@ export class HTMLMediaManagerView implements MediaManagerView {
     newBookForm.reset();
   }
 
-  clearNewBookCollectionForm() {
+  clearNewBookCollectionForm(): void {
     this._newBookCollectionForm.reset();
   }
 }

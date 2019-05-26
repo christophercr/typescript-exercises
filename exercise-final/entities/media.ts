@@ -57,7 +57,7 @@ export abstract class Media {
   }
 
   @Expose()
-  get genre() {
+  get genre(): Genre {
     return this._genre;
   }
 

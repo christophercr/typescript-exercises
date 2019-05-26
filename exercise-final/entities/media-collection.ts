@@ -1,7 +1,7 @@
 import {Expose, Type} from "class-transformer";
 import {Media} from "./media";
 
-export class MediaCollection<T> {
+export class MediaCollection<T extends Media> {
   private _identifier: string;
   private _name: string = "";
   private _collection: ReadonlyArray<T> = [];
@@ -29,7 +29,7 @@ export class MediaCollection<T> {
   }
 
   @Expose()
-  get identifier() {
+  get identifier(): string {
     return this._identifier;
   }
 
@@ -54,17 +54,17 @@ export class MediaCollection<T> {
       throw new Error("Cannot not determine the type because the options object is null or undefined");
     }
   })
-  get collection() {
+  get collection(): ReadonlyArray<T> {
     return this._collection;
   }
 
-  set collection(collection: T[]) {
+  set collection(collection: ReadonlyArray<T>) {
     this._collection = collection;
   }
 
-  addMedia(media: Readonly<T>) {
+  addMedia(media: Readonly<T>): void {
     if (media) {
-      this._collection = this._collection.push(media);
+      this._collection = this._collection.concat(media);
     }
   }
 

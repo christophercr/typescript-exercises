@@ -32,7 +32,7 @@
   "homepage": "https://github.com/christophercr/typescript-exercises#readme",
   "dependencies": {
     "browser-sync": "^2.26.5",
-    "class-transformer": "^0.2.3",
+    "class-transformer": "^0.3.1",
     "cross-env": "^5.2.0",
     "localforage": "^1.7.3",
     "parcel-bundler": "^1.12.3",
